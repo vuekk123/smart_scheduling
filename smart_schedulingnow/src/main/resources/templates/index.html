@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="../js/jquery3.js"></script>
+    <!-- 网站图标 -->
+    <link rel="shortcut icon" href="/img/favicon.ico"/>
+    <title>Document</title>
+    <!-- 网站说明 -->
+    <meta name="description" content=""/>
+    <!-- 网站关键字 -->
+    <meta name="keywords" content="">
+    <!-- css初始化 -->
+    <link rel="stylesheet" href="/css/base.css">
+    <!-- css通用 -->
+    <link rel="stylesheet" href="/css/commond.css">
+    <!-- 网站首页css -->
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/info_manage.css">
+    <script src="/js/index.js"></script>
+    <link href="/css/sweetalert.css" rel="stylesheet"/>
+    <link href="/css/style1.css" rel="stylesheet">
+    <link href="/css/people_manage.css" rel="stylesheet">
+    <link href="/css/store_management.css" rel="stylesheet">
+    <script src="/js/sweetalert-dev.js"></script>
+    <script src="/js/echarts.js"></script>
+    <link href="/css/wait.css" rel="stylesheet">
+    <link href="/css/num_form.css" rel="stylesheet">
+    <link href="/css/mainform.css" rel="stylesheet">
+    <link href="/css/head_cluster.css" rel="stylesheet">
+    <!--    -->
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/css/searchinput.css">
+    <link rel="stylesheet" href="/assets/css/fullcalendar.min.css">
+    <link rel="stylesheet" href="/assets/css/assertsstyle.css">
+    <style>
+        #mytitle {
+            width: 130px;
+            height: 80px;
+            position: absolute;
+            color: #000;
+            max-width: 160px;
+            font-size: 14px;
+            padding: 4px;
+            border: solid 1px #ced5d3;
+            border-radius: 10px !important;
+            text-align: center;
+            line-height: 30px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+<div id="loading">
+    <div id="loading_bg">
+        <div class="loader">Loading...</div>
+    </div>
+</div>
+<div class="page">
+    <div class="nav">
+        <div class="product_info"><img src="/img/pexels-roberto-nickson-2647990.jpg">
+            <h1 class="product_name">排班我来帮</h1><i class="movenav"></i></div>
+        <div class="bg"></div>
+        <dl>
+            <dt><img src="/img/pexels-sebastian-arie-voortman-189349.jpg"><label id="username"
+                                                                                 class="user_name"></label></dt>
+            <script>
+                var name = "[[${name}]]";
+                var nameShop = "[[${nameShop}]]";
+                var user = document.getElementById('username')
+                user.innerHTML = name
+                user.setAttribute("nameShop", nameShop)
+            </script>
+            <dd>
+                <div class="fir_nav" style="color: white;background-color: #4caf50"><label>员工管理</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>手动排表</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>排班管理</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav show">
+                    <p class="show">店铺管理</p><label class="word">﹀</label>
+                </div>
+                <div class="second_nav"><label class="navword1">店铺管理</label></div>
+                <div class="second_nav"><label class="navword2">员工管理</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>数据报表可视</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>公告管理</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>打卡管理</label></div>
+            </dd>
+            <dd>
+                <div class="fir_nav"><label>退出系统</label></div>
+            </dd>
+        </dl>
+    </div>
+    <!--    <div class="move">&lt;/div>-->
+    <div class="container">
+        <div class="column">
+            <div class="user" style="display: none"></div>
+            <script>
+                var name = "[[${name}]]";
+                var nameShop = "[[${nameShop}]]";
+                var user = document.querySelector('.container').querySelector('.column').querySelector('.user')
+                user.innerHTML = '您好 : ' + name
+                user.setAttribute("nameShop", nameShop)
+            </script>
+            <div class="search-box">
+                <input type="text" placeholder=" " /><span></span>
+            </div>
+            <div class="colum_else">
+                <div class="column_cluster"></div>
+                <div class="column_info"></div>
+                <div class="column_peopleinfo"></div>
+            </div>
+
+        </div>
+        <div class="main" style="height: 89%">
+            <div class="people_manage" style="display: block">
+                <div class="peopleManage_body" >
+                    <p>人员管理</p>
+                    <input type="button" value="添加人员" class="peopleManage_addpPeoplebtn">
+                    <div class="peoplelist">
+                        <div th:each="staff,itemStat:${Staff.get(0)}">
+                            <span th:text="${staff.name}" th:value="${staff.shop}"></span>
+                            <button  class="index_btn">管理</button>
+                            <button  class="index_btn">业绩</button>
+                            <button class="peopleManage_moveworker index_btn" data-ripple="ripple" id="peopleManage_moveworker" th:value="${staff.id}"
+                                    th:flag="${staff.shop}">删除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="peopleManage_numTurn">
+                        <div class="peopleManage_numTurnfir">
+                            <div class="peopleManage_left"></div>
+                            <div class="peopleManage_pagenow">1</div>
+                            <div class="peopleManage_right"></div>
+                        </div>
+                        <div class="peopleManage_numTurnsec">
+                            <div class="peopleManage_turnl">去往</div>
+                            <input type="text" class="peopleManage_turn">
+                            <div class="peopleManage_turnr">页</div>
+                            <button class="peopleManage_numgo">跳转</button>
+                        </div>
+                        <div class="peopleManage_numTurntir">
+                            <div class="peopleManage_txtl">共</div>
+                            <div class="peopleManage_num" th:text="${workerPage}"></div>
+                            <div class="peopleManage_txtr">页</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="addpeople_info">
+                    <header>添加工作人员</header>
+                    <p class="addpeople_close"></p>
+                    <form>
+                        <div class="addpeopleFrom_body" id="addpeopleFrom_body">
+                            <label for="addpeople_name">姓名：</label>
+                            <input type="text" id="addpeople_name" placeholder="--请输入姓名--" required="required"
+                                   autocomplete="new-password"><br>
+                            <label for="addpeople_sex">性别：</label>
+                            <select name="addpeople_sex" id="addpeople_sex">
+                                <option value="notdefine" selected="selected">--请选择性别--</option>
+                                <option value="boy">男</option>
+                                <option value="girl">女</option>
+                            </select><br>
+                            <label for="addpeople_age">年龄：</label>
+                            <input type="number" id="addpeople_age" placeholder="--请输入年龄--" required="required"
+                                   autocomplete="new-password"><br>
+                            <label for="addpeople_telephone">电话：</label>
+                            <input type="tel" id="addpeople_telephone" maxlength="11" placeholder="--请输入电话--"
+                                   autocomplete="new-password" required="required"><br>
+                            <label for="addpeople_email">邮件：</label>
+                            <input type="email" id="addpeople_email" placeholder="--请输入邮件--"
+                                   autocomplete="new-password"><br>
+                            <label for="addpeople_postion">职位：</label>
+                            <select name="addpeople_postion" id="addpeople_postion">
+                                <option value="notdefine" selected="selected">--请选择职位--</option>
+                                <option value="store_Manager">门店经理</option>
+                                <option value="Group leader">小组长</option>
+                                <option value="shop_assistant">店员</option>
+                            </select><br></div>
+                        <input type="reset" value="清空，重新填写" id="people_reset">
+                        <input type="button" value="提交" id="people_sub">
+                    </form>
+                </div>
+            </div>
+<!--            打卡-->
+            <div><div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-lg-3 d-none d-lg-block">
+                            <!-- Calendar Events Start -->
+                            <div class="calendar--events">
+                                <h4 class="h4">拖拽人物</h4>
+                                <div class="fc-events">
+                                    <div class="fc-event label-green">武九</div>
+                                    <div class="fc-event label-orange">李四</div>
+                                    <div class="fc-event label-blue">王五</div>
+                                    <div class="fc-event label-red">钱七</div>
+                                    <div class="fc-event label-gray">张三</div>
+                                    <div class="fc-event label-yellow">罗六</div>
+                                    <div class="fc-event label-black">郑八</div>
+                                </div>
+                                <label class="form-check">
+                                    <input type="checkbox" name="is_removeable" value="1" class="form-check-input">
+                                    <span class="form-check-label">拖拽后移除</span>
+                                </label>
+                                <hr>
+                                <h4 class="h4">创建新人员</h4>
+                                <ul class="calendar--event__colors">
+                                    <li class="label-green active"></li>
+                                    <li class="label-orange"></li>
+                                    <li class="label-blue"></li>
+                                    <li class="label-red"></li>
+                                    <li class="label-black"></li>
+                                    <li class="label-gray"></li>
+                                    <li class="label-yellow"></li>
+                                </ul>
+                                <form action="#" class="mt-4 pt-1">
+                                    <input type="text" class="form-control" placeholder="Event Title..." required>
+                                    <button type="submit" class="btn btn-danger btn-rounded mt-3">添加</button>
+                                </form>
+                            </div>
+                            <!-- Calendar Events End -->
+                        </div>
+                        <div class="col-lg-9">
+                            <!-- Calendar Start -->
+                            <div id="calendarApp" class="calendar--app"></div>
+                            <!-- Calendar End -->
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+<!--            -->
+            <div class="store_management">
+                <div class="head">
+                    <select name="formname" id="formname" class="main_sele" style="border: 1px solid black">
+                        <option value="门店1" selected="select">门店1班班表</option>
+                        <option value="门店2">门店2班班表</option>
+                        <option value="门店3">门店3班班表</option>
+                    </select>
+                    <div class="lefthead">
+                        <div class="time"></div>
+                        <div class="find">
+                            <div class="day">按日查看</div>
+                            <div class="char">|</div>
+                            <div class="month">按周查看</div>
+                        </div>
+                    </div>
+                    <div class="subnav">
+                        <div class="btn1" id="btn1">&lt;</div>
+                        <div class="data">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="btn2" id="btn2">&gt;</div>
+                        <div class="dayfind">
+                            <div class="dayfindhead">
+                                <div class="left">&lt;</div>
+                                <div class="monthnow"></div>
+                                <div class="right">&gt;</div>
+                                <div class="everyday"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="selectByDay">
+                    <thead>
+                    <tr>
+                        <th>周一</th>
+                        <th>周二</th>
+                        <th>周三</th>
+                        <th>周四</th>
+                        <th>周五</th>
+                        <th>周六</th>
+                        <th>周日</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+            </div>
+            <div></div>
+            <div>员工管理</div>
+            <div style="height: 100%" class="main_numform_manage" id="process-demo-1">
+                <div class="formcontainer">
+                    <nav style="height: 100%">
+                        <ul class="mcd-menu">
+                            <li>
+                                <a href="javascript:void (0)" class="active">
+                                    <i class="fa fa-home"></i>
+                                    <strong>员工本月出勤</strong>
+                                    <small>4月-门店1</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-edit"></i>
+                                    <strong>本店此月账目</strong>
+                                    <small>4月</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-gift"></i>
+                                    <strong>其他店铺</strong>
+                                    <small>相关信息</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-globe"></i>
+                                    <strong>本店铺此月排名</strong>
+                                    <small>4月-all</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-comments-o"></i>
+                                    <strong>各类报表汇总</strong>
+                                    <small>4月-门店1</small>
+                                </a>
+                                <ul>
+                                    <li><a href="javascript:void (0)"><i class="fa fa-globe"></i>Mission</a></li>
+                                    <li>
+                                        <a href="javascript:void (0)"><i class="fa fa-group"></i>Our Team</a>
+                                        <ul>
+                                            <li><a href="javascript:void (0)"><i class="fa fa-female"></i>Leyla
+                                                Sparks</a></li>
+                                            <li>
+                                                <a href="javascript:void (0)"><i class="fa fa-male"></i>Gleb
+                                                    Ismailov</a>
+                                                <ul>
+                                                    <li><a href="javascript:void (0)"><i
+                                                            class="fa fa-leaf"></i>About</a></li>
+                                                    <li><a href="javascript:void (0)"><i class="fa fa-tasks"></i>Skills</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="javascript:void (0)"><i class="fa fa-female"></i>Viktoria
+                                                Gibbers</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="javascript:void (0)"><i class="fa fa-trophy"></i>Rewards</a></li>
+                                    <li><a href="javascript:void (0)"><i class="fa fa-certificate"></i>Certificates</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-picture-o"></i>
+                                    <strong>编写报表</strong>
+                                    <small>在线编写</small>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void (0)">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <strong>门店总则</strong>
+                                    <small>shop-tips</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="main_formbody">
+                        <div>
+                            <div id="mainform" class="mainform"></div>
+                            <div id="mainform1" class="mainform1"></div>
+                        </div>
+                        <div>
+                            2
+                        </div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+
+                    </div>
+
+                </div>
+                <!--                <div class=""></div>-->
+
+            </div>
+            <div class="info_manage">
+                <div class="info_nav">
+                    <!-- style="filter: blur(4px);" -->
+                    <p>内容关键字:</p>
+                    <input type="text" name="search_info" id="search_info">
+                    <input type="button" name="search_button" id="search_button" value="搜索">
+                </div>
+                <div class="info_body">
+                    <div class="infobody_button">
+                        <input type="button" value="发布公告" id="info_button1" name="info_button1">
+                        <input type="button" value="删除" id="info_button2" name="info_button2">
+                    </div>
+                    <div class="infobody_form">
+                        <div class="form_nav">
+                            <input type="checkbox" value="all" name="forminfoid" class="check">
+                            <div class="formid">ID&nbsp;&gl;</div>
+                            <div class="formthing">公告标题</div>
+                            <div class="formthing">发布部门及人名</div>
+                            <div class="formthing">时间</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="1" name="forminfoid" class="check">
+                            <div class="formid">1</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="2" name="forminfoid" class="check">
+                            <div class="formid">2</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="3" name="forminfoid" class="check">
+                            <div class="formid">3</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="4" name="forminfoid" class="check">
+                            <div class="formid">4</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="5" name="forminfoid" class="check">
+                            <div class="formid">5</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="forminfo">
+                            <input type="checkbox" value="6" name="forminfoid" class="check">
+                            <div class="formid">6</div>
+                            <div class="formthing"><a href="#">公告的内容</a></div>
+                            <div class="formthing">主管</div>
+                            <div class="formthing">2023.4.2</div>
+                        </div>
+                        <div class="numnav">
+                            <div class="turn">
+                                <p class="left">&lt;</p>
+                                <div class="num">1</div>
+                                <p class="right">&gt;</p>
+                                <p class="tip">到第</p>
+                                <input type="text" name="numturn" id="numturn"
+                                       onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+                                       onafterpaste="this.value=this.value.replace(/[^\d]/g,'') " value="1">
+                                <p class="tip">页</p>
+                                <p class="tip">共</p>
+                                <p class="tip">1</p>
+                                <p class="tip">页</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="addinfo" tabindex="1" id="addinfo">
+                    <div class="addinfo_btn" id="addinfo_btn">
+                        <p>发布公告</p>
+                        <div class="close">
+                            <p class="mark"></p>
+                        </div>
+                        <div class="big" flag='0'>
+                            <p class="mark"></p>
+                        </div>
+                    </div>
+                    <div class="addinfo_body">
+                        <div id="notice">
+                            <h2>公告标题</h2>
+                            <p>这里是公告的内容，可以是一段长长的文字。</p>
+                            <p>公告的内容可以分成多段，每一段使用一个&lt;p&gt;标签。</p>
+                        </div>
+                        <form>
+                            <label for="title" style="padding-left: 10px;">公告标题：</label>
+                            <input type="text" id="title" name="title"><br>
+                            <label for="position" style="position: absolute; z-index: 9999; top: 195px; left: 1%;">发布人职务：</label>
+                            <select id="position" name="position"
+                                    style="position: absolute; z-index: 9999; top: 195px; left: 10%;">
+                                <option value="manager">经理</option>
+                                <option value="assistant">助理</option>
+                                <option value="staff">员工</option>
+                            </select><br>
+                            <input id="document" type="file" onchange="onGetFile(this)" accept=".docx"
+                                   style="position: absolute; z-index: 9999; top: 229px; left: 1%;"/><br>
+                            <label for="content" style="vertical-align: top;position: absolute; top: 270px; left: 1%;">公告内容：</label>
+                            <div style="text-align:center;clear:both">
+                                <script src="/gg_bd_ad_720x90.js" type="text/javascript"></script>
+                                <script src="/follow.js" type="text/javascript"></script>
+                            </div>
+                            <svg id="tab-left"
+                                 style="fill: transparent; stroke: none; position: absolute; margin-left: -200%;">
+
+                                <polygon id="tab-shape-left" class="tab-shape tab-shape-left"
+                                         points="900,30 0,30 10,0 900,0"/>
+                                <polygon id="tab-shape-right" class="tab-shape tab-shape-right"
+                                         points="20,30 0,30 0,0"/>
+                                <rect id="square" width="24" height="23" fill="rgba(255,255,255,.85)" stroke="none"
+                                      stroke-width="0"/>
+                                <g id="icon-contact">
+                                    <g id="bg">
+                                        <rect opacity="0.3" fill="#8E25EE" width="24" height="16"/>
+                                    </g>
+                                    <g id="outer">
+                                        <path opacity="0.85" fill="#FFFFFF"
+                                              d="M0,0v16h24V0H0z M21,14H3V3.25L12,10l9-6.75V14z M5.333,2h13.333L12,7L5.333,2z"/>
+                                    </g>
+                                </g>
+                                <g id="icon-home" width="24" height="23">
+                                    <g id="inner">
+                                        <g>
+                                            <polyline opacity="0.6" fill="#0095B3"
+                                                      points="15,13 9,13 9,22 3,22 3,12 12,1 21,11.995 21,22 15,22 		"/>
+                                        </g>
+                                    </g>
+                                    <g id="outer">
+                                        <path opacity="0.95" fill="#FFFFFF"
+                                              d="M12,0L0,14h2v9h8v-9h4v9h8v-9h2L12,0z M20,22h-4v-9H8v9H4V11.993L12,2l8,9.986V22z"/>
+                                    </g>
+                                </g>
+                                <g id="icon-about" width="24" height="23">
+                                    <!--	<rect x="-2" y="-1" display="inline" fill="#173EAD" width="28" height="26"/> -->
+                                    <g id="inner">
+                                        <polygon opacity="0.85" fill="#1782CF"
+                                                 points="1,22 6,19 9,17 6,9 8,3 12,1 16,3 18,9 14,17 16,19 20,20 23,22 	"/>
+                                    </g>
+                                    <g id="outer">
+                                        <path opacity="0.95" fill="#FFFFFF"
+                                              d="M20.485,19.603c-1.067-0.444-2.335-0.817-3.741-1.083c-0.877-0.387-1.494-1.249-1.494-2.27 c0-0.436,0.125-0.837,0.322-1.192c1.54-1.464,2.536-3.751,2.536-6.33c0-4.419-2.911-8-6.5-8c-3.59,0-6.5,3.581-6.5,8 c0,2.609,1.02,4.921,2.592,6.381C7.881,15.453,8,15.834,8,16.25c0,1.21-0.859,2.218-2,2.449v0.04
+              c-0.908,0.215-1.748,0.476-2.485,0.782C1.343,20.427,0,21.619,0,23h24C24,21.619,22.656,20.508,20.485,19.603z M4.062,21H4 c0.042-0.625,1.317-0.796,4.007-1.395c2.402-1.048,2.618-4.022,1.001-5.564C7.854,13.088,7,11.443,7,9c0-4.188,2.542-7.041,5-7 c2.458,0.041,4,2.812,4,7c0,2.678-0.89,4.404-2.078,5.304c-1.63,2.196-0.61,4.23,2.006,5.313C18.665,20.239,20,20.625,20,21H4.062z "/>
+                                    </g>
+                                </g>
+                                <g id="icon-lab" width="24" height="23">
+                                    <g id="outer">
+                                        <polygon opacity="0.95" fill="#FFFFFF"
+                                                 points="21.999,22 2,22 8,10 2,1 10,1 10,3 7,3 11,10 6,20 18,20 13,10 17,3 14,3 14,1 22,1 16,10 	"/>
+                                    </g>
+                                    <g id="inner">
+                                        <polygon opacity="0.6" fill="#4768EB"
+                                                 points="6,20 11,10 7,3 10,3 10,1 14,1 14,3 17,3 13,10 18,20 	"/>
+                                    </g>
+                                </g>
+
+                            </svg>
+
+                            <div class="container1"
+                                 style="display: block; position: absolute; top: 225px; left: 8%;width: 100%;">
+
+                                <nav role="navigation" class="main-navigation">
+                                    <ul>
+                                        <li class="tab-1 active" data-bg-color="hsl(190, 100%, 35%)" id="tab1">
+                                            <a href="#">
+                                                <span>公告内容填写</span>
+                                                <svg class="tab-left">
+                                                    <use xlink:href="#tab-shape-left"></use>
+                                                </svg>
+                                                <svg class="icon icon-home">
+                                                    <use xlink:href="#icon-home"></use>
+                                                </svg>
+                                                <svg class="tab-right">
+                                                    <use xlink:href="#tab-shape-right"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                        <li class="tab-2" data-bg-color="hsl(205, 80%, 45%)" id="tab2">
+                                            <a href="#">
+                                                <span>文件预览</span>
+                                                <svg class="tab-left">
+                                                    <use xlink:href="#tab-shape-left"></use>
+                                                </svg>
+                                                <svg class="icon icon-about">
+                                                    <use xlink:href="#icon-about"></use>
+                                                </svg>
+                                                <svg class="tab-right">
+                                                    <use xlink:href="#tab-shape-right"></use>
+                                                </svg>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </nav>
+
+                                <div class="main-content" id='wrapper'
+                                     style="position: absolute; top: 100%; left: 0; width: 170%;background-color: #dee1e6; height: 264px; padding-top: 0;z-index: 99999;">
+                                    <textarea id="content" name="content"></textarea><br><br>
+                                    <div id="contentbt1">提交</div>
+                                    <div id="contentbt2" flag="0"></div>
+                                    <div id="contentbt3">提交</div>
+                                    <div id="container"></div>
+                                </div>
+                            </div><!-- /.container -->
+
+                            <script src='js/jquery1.js'></script>
+
+                            <script src="js/index1.js"></script>
+                            <!-- <textarea id="content" name="content"></textarea><br><br> -->
+                            <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.1.15/dist/docx-preview.js"></script>
+                            <script>
+                                function onGetFile(el) {
+                                    var file = el.files[0]
+
+                                    var options = {inWrapper: false, ignoreWidth: true, ignoreHeight: true}
+                                    docx.renderAsync(file, document.getElementById("container"), null, options)
+                                        .then(x => console.log("docx: finished"));
+                                }
+                            </script>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div>修改密码</div>
+            <!-- <div></div> -->
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/paiban.js"></script>
+<script src="/js/info_manage.js"></script>
+<script src="/js/people_manage.js"></script>
+<script src="/js/wait.js"></script>
+<script src="/js/num_form.js"></script>
+<script src="/js/mainform.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery-ui.min.js"></script>
+<script src="/js/searchinput.js"></script>
+<!-- Page Level Scripts -->
+<script src="/assets/js/moment.min.js"></script>
+<script src="/assets/js/fullcalendar.js"></script>
+<script src="/assets/js/page/calendar.js"></script>
+<script src="/assets/js/locale-all.js"></script>
+</body>
+
+</html>

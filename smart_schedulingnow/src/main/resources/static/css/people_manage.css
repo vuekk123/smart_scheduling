@@ -1,0 +1,252 @@
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?ufgzja');
+    src: url('../fonts/icomoon.eot?ufgzja#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?ufgzja') format('truetype'),
+    url('../fonts/icomoon.woff?ufgzja') format('woff'),
+    url('../fonts/icomoon.svg?ufgzja#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+.people_manage {
+    width: 100%;
+    font-size: 20px;
+    /* background-color: pink; */
+    overflow: hidden;
+}
+
+.people_manage .peopleManage_body p {
+    display: block;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.people_manage .peopleManage_body .peoplelist {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 600px;
+}
+
+.people_manage .peopleManage_body .peoplelist > div {
+    float: left;
+    width: 100%;
+    height: 100px;
+    line-height: 0;
+    padding: 3% 8% 3% 10%;
+}
+
+/*.people_manage .peopleManage_body .peoplelist div {*/
+/*    float: left;*/
+/*}*/
+.people_manage .peopleManage_body .peoplelist div:nth-child(odd) {
+    background: linear-gradient(to bottom, #dedddd,#f2f2f2);
+}
+.people_manage .peopleManage_body .peoplelist div button {
+    float: right;
+    margin: -10px 20px;
+    width: 60px;
+    height: 40px;
+    background-color: gainsboro;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    border-top: 1px #6c757d solid;
+    background-color: #f2f2f2;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn > * {
+    position: absolute;
+    top: 38%;
+    font-size: 20px;
+    font-weight: 450;
+    /*height: 100%;*/
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnfir {
+    left: 20%;
+    height: 100px;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnfir .peopleManage_pagenow {
+    margin: 0 30px;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnfir .peopleManage_left::after {
+    content: '';
+    font-family: 'icomoon';
+}
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnfir .peopleManage_right::after {
+    content: '';
+    font-family: 'icomoon';
+}
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec {
+    left: 45%;
+    top: 36%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec .peopleManage_turn {
+    width: 80px;
+    height: 30px;
+    margin: 0 10px;
+    /*height: 30%;*/
+}
+
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec .peopleManage_numgo {
+    box-sizing: content-box;
+    position: relative;
+    padding: 10px 15px;
+    font-size: 5px;
+    background-color: #00b3b4;
+    background-size: 10px 10px;
+    border: 1px solid #555;
+    margin-left: 10px;
+    color: white;
+    transition: all ease 0.3s;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec .peopleManage_numgo::after {
+    position: absolute;
+    top: 50%;
+    right: 0.1em;
+    transform: translateY(-50%);
+    content: "»";
+    font-size: 0.3em;
+    transition: all ease 0.3s;
+    opacity: 0;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec .peopleManage_numgo:hover {
+    padding: 10px 30px 10px 10px;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec .peopleManage_numgo:hover::after {
+    right: 0.6em;
+    opacity: 1;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurntir {
+    right: 20%;
+    /*top: 0;*/
+    height: 100px;
+    letter-spacing: 8px;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnfir > * {
+    float: left;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurnsec > * {
+    float: left;
+}
+
+.people_manage .peopleManage_body .peopleManage_numTurn .peopleManage_numTurntir > * {
+    float: left;
+}
+
+.people_manage .peopleManage_body .peopleManage_addpPeoplebtn {
+    position: absolute;
+    top: 11%;
+    right: 2%;
+    height: 50px;
+    width: 100px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.people_manage .addpeople_info {
+    display: none;
+    position: absolute;
+    /*top: calc(50% - 300px);*/
+    /*left: calc(50% - 500px);*/
+    /*width: 1000px;*/
+    /*height: 600px;*/
+    padding: 0 5.7%;
+    /*background-color: white;*/
+    z-index: 99999;
+    background-color: #dbdbdb;
+    box-shadow: 0px 2px 20px -1px black;
+}
+
+.people_manage .addpeople_info > header {
+    text-align: center;
+    font-size: 24px;
+    padding: 12px 0;
+    border-bottom: 1px solid black;
+}
+
+.people_manage .addpeople_info .addpeople_close {
+    position: absolute;
+    display: block;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 10%;
+    color: #050708;
+    line-height: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.people_manage .addpeople_info .addpeople_close::before {
+    content: '\ea0f';
+    font-family: 'icomoon';
+}
+
+.people_manage .addpeople_info form .addpeopleFrom_body > label {
+    margin-left: 2%;
+}
+
+.people_manage .addpeople_info form .addpeopleFrom_body > input {
+    width: 400px;
+    font-size: 20px;
+    margin-top: 40px;
+    border-bottom: 1px solid black;
+    background-color: #dbdbdb;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    outline: none;
+    text-indent: 10px;
+}
+
+.people_manage .addpeople_info form .addpeopleFrom_body > select {
+    margin-top: 30px;
+}
+
+.people_manage .addpeople_info form #people_reset {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80%;
+    height: 75px;
+    font-size: 14px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.people_manage .addpeople_info form #people_sub {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 20%;
+    height: 75px;
+    font-size: 14px;
+    border: 2px solid black;
+    border-left: none;
+    cursor: pointer;
+}

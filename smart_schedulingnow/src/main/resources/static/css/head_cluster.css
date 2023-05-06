@@ -1,0 +1,30 @@
+.colum_else{
+    display: block;
+    position: absolute;
+    top: 21%;
+    left: 84.5%;
+    height: 40px;
+    width: 194px;
+    /*background-color: pink;*/
+    z-index: 0;
+    margin: 0;
+    font-size: 20px;
+    overflow: hidden;
+}
+.colum_else >div {
+    float: left;
+    line-height: 40px;
+    margin: 0px 19px;
+}
+.colum_else .column_cluster::after {
+    content: '';
+    font-family: 'icomoon'
+}
+.colum_else .column_info::after {
+    content: '';
+    font-family: 'icomoon'
+}
+.colum_else .column_peopleinfo::after {
+    content: '';
+    font-family: 'icomoon'
+}

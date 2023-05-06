@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>注册页面</title>
+<script src="js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="css/登录.css">
+
+</head>
+<body>
+        <style>
+    body{
+            background:  url(/img/22.jpg)no-repeat;
+            background-size:cover;
+            background-repeat: repeat;
+            text-align: center;
+            font-family: 'DM Sans', sans-serif;
+        }
+        
+    </style>
+    <div class="box">
+            <h2>注册</h2>
+        <form action="register_account_info" method="get">
+            <div class="inputBox">
+              <input type="text" name="name" required="" id="user">
+              <label>姓名</label>
+            </div>
+            <div class="inputBox">
+<!--            <input type="text" name="mail" required="" id="post">-->
+                <input type="text" name="mail" required="" id="post">
+
+                <input type="text" name="msg" required="" id="msg" value="此用户名已经存在,点击以修改" style="color: red" hidden>
+            <label>邮箱</label>
+            </div>
+
+<!--            <div class="span_mail"><span id="s_mail"></span></div>-->
+
+
+<!--          <div class="inputBox">-->
+<!--            <label>职位</label>-->
+
+<!--              <select style="margin-left: 200px;margin-top: 20px;" name="position">-->
+<!--              <option>门店经理</option><option>副经理</option><option>小组长</option><option>店员</option>-->
+<!--              </select>-->
+
+<!--          </div>-->
+<!--          <div class="inputBox">-->
+<!--            <label>所属门店</label>-->
+
+<!--              <select style="margin-left: 200px;margin-top: 20px;" name="shop">-->
+<!--              <option>门店1</option><option>门店2</option><option>门店3</option>-->
+<!--              </select>-->
+
+<!--          </div>-->
+            <div class="inputBox">
+          <input type="password" name="pwd" required="" id="psd" >
+          <label>密码</label>
+          </div>
+          <div class="inputBox">
+          <input type="password" name="pwd2" required="" id="psd2">
+          <label>确认密码</label>
+          </div>
+            
+        <input type="submit" name="" value="确认注册" id="add">
+
+            <p id="login" style="right: 10px;">返回登录</p >
+<!--        <a href="show_staff_login">返回登录</a>-->
+        </form>
+    <script>
+        // $("#login").click(function(){
+        //   window.location.href="登录.html";
+        //  })
+        $("#login").click(function(){
+            window.location.href="show_staff_login";
+        })
+        $("#add").click(function(){
+          var username = $("input#user").val();
+          if($("input#user").val()===""||$("input#post").val()===""||$("input#psd").val()===""){
+            alert("填写信息不完全!");
+          }else{
+          if($("input#psd").val()!=$("input#psd2").val()){
+            alert("两次密码输入不一致!");
+            $("input#psd").val("");
+            $("input#psd2").val("");}
+            else{
+            alert("注册成功!");
+            // window.location.href="";
+        }}
+        })
+
+        //在页面加载完成后
+        $(function () {
+            $("#post").blur(function () {
+
+                let mail = $(this).val();
+                //发送ajax请求
+                //期望服务器响应回的格式:{"userExist":true,"msg":"此用户名已经存在,请换一个"}
+                //                     {"userExist":false,"msg":"此用户名可用"}
+                $.get("checkmail",{mail:mail},function (data) {
+
+                    //判断userExist键的值是否是true
+                       var span = $("#s_mail")
+
+                    if(data.userExist){
+                        // alert("用户名存在,请换一个")
+                        //用户名存在
+                        // span.css("color","red")
+                        // span.html(data.msg);
+                        $("#post").hide();
+                        $("#msg").show();
+
+                    }else{
+                        // alert("用户名不存在可以注册")
+                        //用户名不存在
+                        // span.css("color","green")
+                        // span.html(data.msg)
+
+
+                    }
+                })
+            })
+            $("#msg").focus(function () {
+                $("#post").show();
+                $("#msg").hide();
+                $("#post").focus();
+            })
+        })
+                
+    </script>
+
+    
+    </div>
+
+</body>
+</html>

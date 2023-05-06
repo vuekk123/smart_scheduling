@@ -1,0 +1,12 @@
+.page .container .main {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.page .container .main>div {
+    display: none;
+}
+
+/*.page .container .main div:first-child {*/
+/*    display: block;*/
+/*}*/

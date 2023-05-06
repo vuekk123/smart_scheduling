@@ -1,0 +1,45 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<title>登录注册页面 </title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ 
+<!-- Custom Theme files -->
+<link href="css/snow.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- //Custom Theme files -->
+
+	<style>
+		body{
+			background:url(img/bg.jpg)no-repeat;
+			background-size:cover;
+			background-repeat: repeat;
+			text-align: center;
+			font-family: 'DM Sans', sans-serif;
+		}
+	</style>
+</head>
+<body>
+<div class="top-buttons-agileinfo">
+<a href="show_staff_login" class="active">登录</a><a href="show_register_web">注册</a>
+</div>
+<h1>登录注册页面</h1>
+<div class="main-agileits">
+<div class="form-w3-agile">
+			<h2 class="sub-agileits-w3layouts">登录系统</h2>
+			<form action="check_staff_login" method="post">
+					<input type="email" name="mail" placeholder="Email" required="" />
+					<input type="password" name="pwd" placeholder="Password" required="" />
+					<a href="#" class="forgot-w3layouts">忘记密码 ?</a>
+				<div class="submit-w3l">
+                    <input type="submit" value="登录">
+				</div>
+				<p class="p-bottom-w3ls"><a href="show_register_web">这里注册</a>如果你还没有一个账号.</p>
+			</form>
+
+		</div>
+		</div>
+</body>
+</html>

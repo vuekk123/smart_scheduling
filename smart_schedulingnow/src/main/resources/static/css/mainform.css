@@ -1,0 +1,15 @@
+.mainform {
+    margin-left: 30px;
+    margin-top: 50px;
+    width: 600px;
+    height: 400px;
+}
+.mainform1 {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    /*margin-right: 0;*/
+    /*margin-top: 50px;*/
+    width: 600px;
+    height: 400px;
+}

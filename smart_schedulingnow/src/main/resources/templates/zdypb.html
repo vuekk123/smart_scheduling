@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="../js/jquery3.js"></script>
+    <script type="text/javascript">
+        var mythis=null;
+        var int=0;
+        var s="";
+        var flag1=true;
+        $(document).ready(function () {
+            // $("#checkboxbox").click(function () {
+            //     $("#checkboxbox").hide();
+            // })
+
+            $("#checkboxbtn").click(function () {
+                int=0;
+                s="";
+                // alert("1111");
+                if (mythis!=null){
+                    $(".checkinput").each(function (item) {
+                        if ($(this).prop("checked")){
+
+                            if (int==0){
+                                s=s+$(this).val();
+                            }else {
+                                s=s+","+$(this).val();
+                            }
+                            int=int+1;
+                        }
+                    })
+                    mythis.val(s);
+                }
+
+                $("#checkboxbox").hide();
+            })
+
+            $("#gb").click(function () {
+                $("#checkboxbox").hide();
+            })
+
+            $("#kdqxdzw").click(function () {
+                mythis=$("#kdqxdzw");
+                $("#checkboxbox").show();
+
+                $(".checkinput").each(function (item) {
+                    $(this).prop("checked",false);
+                    // alert($(this).prop("checked"));
+                })
+            })
+
+            $("#kdqjxdzw").click(function () {
+                mythis=$("#kdqjxdzw");
+                $("#checkboxbox").show();
+
+                $(".checkinput").each(function (item) {
+                    $(this).prop("checked",false);
+                    // alert($(this).prop("checked"));
+                })
+            })
+
+            $("#gdxdzw").click(function () {
+                mythis=$("#gdxdzw");
+                $("#checkboxbox").show();
+
+                $(".checkinput").each(function (item) {
+                    $(this).prop("checked",false);
+                    // alert($(this).prop("checked"));
+                })
+            })
+
+
+            $("#btn_ok").click(function () {
+                flag1=true;
+                $(".form-control").each(function (item) {
+                    if ($(this).val()==""&&flag1){
+                        alert("有自定义属性未填写，请全部填写后提交！")
+                        $(this).focus();
+                        flag1=false;
+
+                    }
+                })
+
+                if (flag1){
+                    $("#form_student").submit();
+                }
+
+            })
+
+
+        })
+    </script>
+
+</head>
+<body>
+<div style="position: fixed;top: 0px;left: 0px;background-color: rgba(0,0,0,0.39);width: 100%;height: 100%;z-index: 100;display: none" id="checkboxbox" >
+    <div style="width: 40%;height: 30%;background-color: white;border-radius: 5px;margin: 15% auto">
+        <div style="background-image: url('关闭按钮.png');height: 30px;width: 30px;margin-left: 95%" id="gb">
+            <svg t="1672943340677" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2333" width="20" height="20"><path d="M512 64.7C264.9 64.7 64.7 264.9 64.7 512S264.9 959.3 512 959.3 959.3 759.1 959.3 512 759.1 64.7 512 64.7z m169.2 547.4c12.5 12.5 12.5 32.8 0 45.3-6.2 6.2-14.4 9.4-22.6 9.4s-16.4-3.1-22.6-9.4l-107-107-106.9 107c-6.2 6.2-14.4 9.4-22.6 9.4-8.2 0-16.4-3.1-22.6-9.4-12.5-12.5-12.5-32.8 0-45.3l106.9-106.9-107-106.9c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L529 459.9 635.9 353c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L574.3 505.2l106.9 106.9z" p-id="2334"></path></svg>
+        </div>
+        <div style="margin: 0px auto;text-align: center">
+            <h3 style="color: red">限定职位</h3>
+        </div>
+        <div style="height: 80%">
+            <input th:each="zhiwei,itemStat:${zhiwei}" type="checkbox" th:text="${zhiwei.position}" style="margin-left: 20px" th:value="${zhiwei.position}" class="checkinput">
+        </div>
+        <div style="text-align: center;margin: 0px auto">
+            <button id="checkboxbtn">确定</button>
+        </div>
+    </div>
+
+</div>
+<form id="form_student" action="change_3" method="get">
+    <div class="container">
+        <div class="row justify-content-center bg-light" style="height: 480px">
+            <div class="align-self-center">
+                <div class="row" style="text-align: center">
+                    <h3 class="text-danger" style="margin: 0px auto;margin-top: 10px;margin-bottom: 25px;" th:if="${xiugia} eq '0'" >
+                        用户自定义规则：
+                    </h3>
+                    <h3 class="text-danger" style="margin: 0px auto;margin-top: 10px;margin-bottom: 25px;" th:if="${xiugia} eq '1'" >
+                        修改用户自定义规则：
+                    </h3>
+                </div>
+                <!--                                <div class="row">-->
+                <!--                                    <h5 class="text-danger">文本框显示什么格式请按什么格式输入</h5>-->
+                <!--                                </div>-->
+                <div class="row">
+                    <h5 style="color: blue">
+                        门店信息:
+                    </h5>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <label>门店id:</label>
+                        <input type="text" maxlength="9" class="form-control" id="sid" name="sid"
+                               th:value="${dian.sid}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>门店名字:</label>
+                        <input type="text" maxlength="16" class="form-control" id="name"
+                               name="name"  th:value="${dian.name}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>门店所有人:</label>
+                        <input type="text" maxlength="18" class="form-control" id="sname"
+                               name="sname"  th:value="${dian.sname}" />
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <h5 style="color: blue">
+                        开店前规则:
+                    </h5>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <label>准备时间:</label>
+                        <input type="text" maxlength="9" class="form-control" id="kdqzbsj" name="kdqzbsj"
+                               th:if="${xiugia} eq '0' " />
+
+                        <input type="text" maxlength="9" class="form-control" id="kdqzbsj-1" name="kdqzbsj"
+                               th:value="${guize.kdqzbsj}" th:if="${xiugia} eq '1' " />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>面积人数比值:</label>
+                        <input type="text" maxlength="18" class="form-control" id="kdqbz"
+                               name="kdqbz"  th:if="${xiugia} eq '0' "  />
+                        <input type="text" maxlength="18" class="form-control" id="kdqbz-1"
+                               name="kdqbz"  th:if="${xiugia} eq '1' " th:value="${guize.kdqbz}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>限定职位:</label>
+                        <input type="text" maxlength="16" class="form-control" id="kdqxdzw"
+                               name="kdqxdzw"  th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="16" class="form-control" id="kdqxdzw-1"
+                               name="kdqxdzw"  th:if="${xiugia} eq '1' "  th:value="${guize.kdqxdzw}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h5 style="color: blue">
+                        开店期间规则:
+                    </h5>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <label>客流人数比值:</label>
+                        <input type="text" maxlength="9" class="form-control" id="kdqjkxbz" name="kdqjkxbz"
+                               th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="9" class="form-control" id="kdqjkxbz-1" name="kdqjkxbz"
+                               th:if="${xiugia} eq '1' "  th:value="${guize.kdqjklbz}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>限定职位:</label>
+                        <input type="text" maxlength="18" class="form-control" id="kdqjxdzw"
+                               name="kdqjxdzw"  th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="18" class="form-control" id="kdqjxdzw-1"
+                               name="kdqjxdzw"  th:if="${xiugia} eq '1' " th:value="${guize.kdqjxdzw}"  />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>最低值班人数:</label>
+                        <input type="text" maxlength="16" class="form-control" id="zdzbrs"
+                               name="zdzbrs" th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="16" class="form-control" id="zdzbrs-1"
+                               name="zdzbrs" th:if="${xiugia} eq '1' " th:value="${guize.zdzbrs}" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h5 style="color: blue">
+                        关店规则:
+                    </h5>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <label>收尾时间:</label>
+                        <input type="text" maxlength="9" class="form-control" id="gdsj" name="gdsj"
+                               th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="9" class="form-control" id="gdsj-1" name="gdsj"
+                               th:if="${xiugia} eq '1' " th:value="${guize.gdsj}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>面积人数比:</label>
+                        <input type="text" maxlength="18" class="form-control" id="gdmjrsb"
+                               name="gdmjrsb"  th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="18" class="form-control" id="gdmjrsb-1"
+                               name="gdmjrsb"  th:if="${xiugia} eq '1' "  th:value="${guize.gdmjrsb}" />
+                    </div>
+                    <div class="col-xl-4">
+                        <label>额外辅助人数:</label>
+                        <input type="text" maxlength="16" class="form-control" id="gdewfzrs"
+                               name="gdewfzrs" th:if="${xiugia} eq '0' " />
+                        <input type="text" maxlength="16" class="form-control" id="gdewfzrs-1"
+                               name="gdewfzrs" th:if="${xiugia} eq '1' " th:value="${guize.gdewfzrs}" />
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-xl-4 ">
+                        <label>限定职位:</label>
+                        <input type="text" maxlength="9" class="form-control" id="gdxdzw" name="gdxdzw"
+                               th:if="${xiugia} eq '0' "  />
+                        <input type="text" maxlength="9" class="form-control" id="gdxdzw-1" name="gdxdzw"
+                               th:if="${xiugia} eq '1' "  th:value="${guize.gdxdzw}"  />
+                    </div>
+
+                </div>
+
+                <!--                <div class="row ">-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>姓名拼音:</label>-->
+                <!--                        <input type="text" maxlength="32" class="form-control" id="name_py"-->
+                <!--                               name="name_py"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>性别:</label>-->
+                <!--                        <input type="text" maxlength="2" class="form-control" id="sex"-->
+                <!--                               name="sex"  readonly/>-->
+
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>专业:</label>-->
+                <!--                        <input type="text" maxlength="32" class="form-control" id="zhuanye"-->
+                <!--                               name="zhuanye"  readonly/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row ">-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>班级:</label>-->
+                <!--                        <input type="text" maxlength="8" class="form-control" id="b_no"-->
+                <!--                               name="b_no"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>年级:</label>-->
+                <!--                        <input type="text" maxlength="4" class="form-control" id="grade"-->
+                <!--                               name="grade"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>入学时间:</label>-->
+                <!--                        <input type="text" maxlength="8" class="form-control"-->
+                <!--                               id="join_date" name="join_date"  readonly/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row ">-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>民族:</label>-->
+                <!--                        <input type="text" maxlength="6" class="form-control" id="mz"-->
+                <!--                               name="mz"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>政治面貌:</label>-->
+                <!--                        <input type="text" maxlength="10" class="form-control" id="zzmm"-->
+                <!--                               name="zzmm"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>籍贯:</label>-->
+                <!--                        <input type="text" maxlength="32" class="form-control" id="jiguan"-->
+                <!--                               name="jiguan"  readonly/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row ">-->
+                <!--                    <div class="col-xl-4">-->
+                <!--                        <label>出生日期:</label>-->
+                <!--                        <input type="text" maxlength="8" class="form-control"-->
+                <!--                               id="chusheng_date" name="chusheng_date"  readonly/>-->
+                <!--                    </div>-->
+                <!--                    <div class="col-xl-8">-->
+                <!--                        <label>出生地:</label>-->
+                <!--                        <input type="text" maxlength="32" class="form-control" id="chusheng"-->
+                <!--                               name="chusheng"  readonly/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="row justify-content-center bg-light mt-3" id="btns">
+                    <div class="col-xl-4 text-center">
+                        <button class="btn btn-primary" id="btn_ok" type="button">核对无误并修改</button>
+                    </div>
+                    <div class="col-xl-4 text-center">
+                        <button class="btn btn-primary" id="btn_back" type="button">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--    <div>-->
+    <!--        <select multiple="multiple" size="4">-->
+    <!--            <option>河北省</option>-->
+    <!--            <option>河南省</option>-->
+    <!--            <option>山东省</option>-->
+    <!--            <option>山西省</option>-->
+    <!--        </select>-->
+    <!--        <select name= “education” id=”education” multiple=”multiple” size="1">-->
+    <!--            <option value=”1”>高中</option>-->
+    <!--            <option value=”2”>大学</option>-->
+    <!--            <option value=”3”>博士</option>-->
+    <!--        </select>-->
+
+    <!--&lt;!&ndash;        //下面没有multiple属性 , 只显示一条，不能多选&ndash;&gt;-->
+    <!--        <select name= “education” id=”education” >-->
+    <!--            <option value=”1”>高中</option>-->
+    <!--            <option value=”2”>大学</option>-->
+    <!--            <option value=”3”>博士</option>-->
+    <!--        </select>-->
+    <!--&lt;!&ndash;        下面是设置了size属性的情况 , 如果size = 3 那么就显示三条数据，注意不能多选的。&ndash;&gt;-->
+    <!--        <select name="education" id="education" size='3'>-->
+    <!--            <option value="0">小学</option>-->
+    <!--            <option value="1">初中</option>-->
+    <!--            <option value="2">高中</option>-->
+    <!--            <option value="3">中专</option>-->
+    <!--            <option value="4">大专</option>-->
+    <!--            <option value="5">本科</option>-->
+    <!--            <option value="6">研究生</option>-->
+    <!--            <option value="7">博士</option>-->
+    <!--            <option value="8">博士后</option>-->
+    <!--            <option selected>请选择</option>-->
+    <!--        </select>-->
+
+    <!--    </div>-->
+</form>
+</body>
+</html>
+
+
+

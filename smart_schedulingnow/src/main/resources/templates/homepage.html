@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script src="jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="../js/jquery3.js"></script>
+    <link rel="stylesheet" href="css/1.css">
+    <title>门店排班</title>
+</head>
+<style>
+    #btn1:hover{
+        color:greenyellow;
+    }
+
+    #btn2:hover{
+        color:greenyellow;
+
+    }
+
+
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#div1").hide();
+        $("#div2").hide();
+
+        $("#btn1").click(function () {
+            $("#btn1").css("color","blue");
+            $("#btn2").css("color","black");
+
+            $("#div1").show();
+            $("#div2").hide();
+
+        });
+        $("#btn2").click(function () {
+            $("#btn2").css("color","blue");
+            $("#btn1").css("color","black");
+
+            $("#div2").show();
+            $("#div1").hide();
+        })
+        $("#tr1").click(function () {
+            $("#btn1").click(function(){
+
+                $.ajax({
+                    type: "POST",
+                    url: "homepage/",
+                    data: {
+                        date:$("#sapn1").val()
+                    },
+                    success: function(result) {
+
+                    },
+                    error: function(result) {
+
+                    }
+                });
+
+
+            })
+
+        })
+    })
+</script>
+<body>
+<div class="biao">
+
+    <form>
+        <select style="	width: 220px;height: 60px;font-size: 25px;text-align: center;">
+            <option>门店1排班表</option>
+            <option>门店2排班表</option>
+            <option>门店3排班表</option>
+        </select>
+    </form>
+
+
+</div>
+
+<div>
+    <form>
+        <div>
+        <div style="margin-left: 100px;border: 1px solid black;width:150px;height: 25px">
+            <input type="button" id="btn1" value="按日查看" style="border: none;background-color: white;padding-left: 10px;font-size: 13px;">
+            <sapn style="font-size: 13px">|</sapn>
+            <input type="button" id="btn2" value="按周查看" style="border: none;background-color: white;font-size: 13px">
+        </div>
+
+        </div>
+
+        <select style="font-size: 15px;margin-left: 100px;height: 30px;width: 120px;color: #808080;background-color: #fff;margin-top: 10px">
+            <option>按岗位分组</option>
+            <option>按xx分组</option>
+        </select>
+        <input type="button" value="删除" style="margin-left: 1000px;width: 100px;height: 30px;color: #808080;background-color: #fff;">
+        <input type="button" value="编辑" style="width: 100px;height: 30px;color: #808080;background-color: #fff;">
+        
+        
+    </form>
+
+</div>
+&ensp;
+<div id="div2">
+<div class="liebiao">
+    <table border="1" cellspacing="0" align="center">
+
+        <tr>
+        <th id="tr1">周一<br><span id="span1">2月1日</span></th>
+        <th>周二</th>
+        <th>周三</th>
+        <th>周四</th>
+        <th>周五</th>
+        <th>周六</th>
+        <th>周日</th>
+        </tr>
+<!--        <div th:each="schedule_time01,itemStat01:${schedule_times01}" >-->
+        <div th:each="size,itemStat:${size}" >
+            <tr>
+                <td th:if="${itemStat.index}<${size1}">
+
+                    <span th:text="${schedule_times01.get(__${itemStat.index}__).
+                    formateTime(schedule_times01.get(__${itemStat.index}__).open_time)}"></span>
+                    -<span th:text="${schedule_times01.get(__${itemStat.index}__).
+                    formateTime(schedule_times01.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times01.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times01.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size1}">
+
+                </td>
+
+
+                <td th:if="${itemStat.index}<${size2}">
+                    <span th:text="${schedule_times02.get(__${itemStat.index}__).formateTime(schedule_times02.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times02.get(__${itemStat.index}__).formateTime(schedule_times02.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times02.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times02.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size2}">
+
+                </td>
+                <td th:if="${itemStat.index}<${size3}">
+                    <span th:text="${schedule_times03.get(__${itemStat.index}__).formateTime(schedule_times03.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times03.get(__${itemStat.index}__).formateTime(schedule_times03.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times03.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times03.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size3}">
+
+                </td>
+                <td th:if="${itemStat.index}<${size4}">
+                    <span th:text="${schedule_times04.get(__${itemStat.index}__).formateTime(schedule_times04.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times04.get(__${itemStat.index}__).formateTime(schedule_times04.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times04.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times04.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size4}">
+
+                </td>
+                <td th:if="${itemStat.index}<${size5}">
+                    <span th:text="${schedule_times05.get(__${itemStat.index}__).formateTime(schedule_times05.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times05.get(__${itemStat.index}__).formateTime(schedule_times05.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times05.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times05.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size5}">
+
+                </td>
+                <td th:if="${itemStat.index}<${size6}">
+                    <span th:text="${schedule_times06.get(__${itemStat.index}__).formateTime(schedule_times06.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times06.get(__${itemStat.index}__).formateTime(schedule_times06.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times06.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times06.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size6}">
+
+                </td>
+                <td th:if="${itemStat.index}<${size7}">
+                    <span th:text="${schedule_times07.get(__${itemStat.index}__).formateTime(schedule_times07.get(__${itemStat.index}__).open_time)}"></span>-<span th:text="${schedule_times07.get(__${itemStat.index}__).formateTime(schedule_times07.get(__${itemStat.index}__).end_time)}"></span><br>
+                    <span >员工姓名:</span><span  th:text="${schedule_times07.get(__${itemStat.index}__).name}"></span><br>
+                    <span>员工职位:</span><span th:text="${schedule_times07.get(__${itemStat.index}__).position}"></span>
+                </td>
+                <td th:if="${itemStat.index}>=${size7}">
+
+                </td>
+
+            </tr>
+        </div>
+
+
+</table>
+
+</div>
+</div>
+
+<div id="div1">
+    <div class="liebiao">
+        <table border="1" cellspacing="0" align="center">
+
+            <!--今天工作的有哪些人-->
+            <div th:each="people,itemStat:${peopleInMonday}">
+            <tr>
+                <td th:text="${people.name}"></td>
+            </tr>
+            </div>
+
+
+            <!--        <div th:each="schedule_time01,itemStat01:${schedule_times01}" >-->
+            <div>
+                <tr>
+                    <td>9:00-9:30</td>
+                </tr>
+                <tr>
+                    <td>9:30-10:00</td>
+                </tr>
+                <tr>
+                    <td>10:00-10:30</td>
+                </tr>
+                <tr>
+                    <td>10:30-11:00</td>
+                </tr>
+                <tr>
+                    <td>11:00-11:30</td>
+                </tr>
+                <tr>
+                    <td>11:30-12:00</td>
+                </tr>
+                <tr>
+                    <td>12:00-12:30</td>
+                </tr>
+                <tr>
+                    <td>12:30-13:00</td>
+                </tr>
+                <tr>
+                    <td>13:00-13:30</td>
+                </tr>
+                <tr>
+                    <td>13:30-14:00</td>
+                </tr>
+                <tr>
+                    <td>14:00-14:30</td>
+                </tr>
+                <tr>
+                    <td>14:30-15:00</td>
+                </tr>
+                <tr>
+                    <td>15:00-15:30</td>
+                </tr>
+                <tr>
+                    <td>15:30-16:00</td>
+                </tr>
+                <tr>
+                    <td>16:00-16:30</td>
+                </tr>
+                <tr>
+                    <td>16:30-17:00</td>
+                </tr>
+                <tr>
+                    <td>17:00-17:30</td>
+                </tr>
+                <tr>
+                    <td>17:30-18:00</td>
+                </tr>
+                <tr>
+                    <td>18:00-18:30</td>
+                </tr>
+                <tr>
+                    <td>18:30-19:00</td>
+                </tr>
+                <tr>
+                    <td>19:00-19:30</td>
+                </tr>
+                <tr>
+                    <td>19:30-20:00</td>
+                </tr>
+                <tr>
+                    <td>20:00-20:30</td>
+                </tr>
+                <tr>
+                    <td>20:30-21:00</td>
+                </tr>
+                <tr>
+                    <td>21:00-21:30</td>
+                </tr>
+                <tr>
+                    <td>21:30-22:00</td>
+                </tr>
+                <tr>
+                    <td>22:30-23:00</td>
+                </tr>
+
+            </div>
+
+
+        </table>
+
+    </div>
+
+</div>
+</body>
+</html>
